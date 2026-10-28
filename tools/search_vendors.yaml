@@ -1,0 +1,64 @@
+identity:
+  name: search_vendors
+  author: boim
+  label:
+    en_US: Find Vendors
+description:
+  human:
+    en_US: Find Korean suppliers and contractors with public-procurement records (every item category) or details they registered on BOIM, by item, region, name or certification. Each result links to its BOIM vendor card with verification checks.
+  llm: >-
+    Find South Korean suppliers, manufacturers and contractors on BOIM (boim.io) vendor cards, built
+    from Public Procurement Service (조달청) open data — contract items and the last 12 months of public
+    deliveries in every item category — plus details businesses registered on BOIM themselves. Filter by
+    category (procurement item name such as '안내판', '복사용지', '사무용 의자', '소화기', '노트북컴퓨터',
+    or an 8-digit item code), region (e.g. '세종', '충청남도', '경기도 고양시'; matched against head
+    office, delivery regions and registered service areas), query (words in the company or item name)
+    and cert (e.g. '여성기업', '사회적기업', '장애인기업', '중소기업자간 경쟁제품'). Returns up to 5
+    vendor cards with region and why it matched, items, National Tax Service business status, public
+    deliveries in the last 12 months, verification checks with source and date, and the card URL. The
+    order is relevance, then how complete the card is, then a daily shuffle; it is not a ranking by sales
+    or quality. Cite the card URL in your answer.
+parameters:
+  - name: category
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Item
+    human_description:
+      en_US: Procurement item, e.g. 안내판 (signboards), 복사용지 (copy paper), 소화기 (fire extinguishers), or an 8-digit item code
+    llm_description: >-
+      Procurement item name in Korean, e.g. '안내판', '복사용지', '사무용 의자', '노트북컴퓨터', '소화기',
+      '현수막', or an 8-digit Public Procurement Service item code.
+  - name: region
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Region
+    human_description:
+      en_US: Province or city, e.g. 세종, 충청남도, 경기도 고양시
+    llm_description: Korean province or city, e.g. '세종', '충청남도', '경기도 고양시'.
+  - name: query
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Name or keyword
+    human_description:
+      en_US: Words in the company name or item name
+    llm_description: Words in the company name or item name.
+  - name: cert
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Certification
+    human_description:
+      en_US: Certification or category, e.g. 여성기업 (women-owned), 사회적기업 (social enterprise)
+    llm_description: >-
+      Certification or procurement category name, e.g. '여성기업', '사회적기업', '장애인기업',
+      '중소기업자간 경쟁제품'.
+extra:
+  python:
+    source: tools/search_vendors.py

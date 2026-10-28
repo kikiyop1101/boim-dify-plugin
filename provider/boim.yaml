@@ -1,0 +1,19 @@
+identity:
+  author: boim
+  name: boim
+  label:
+    en_US: BOIM — Korean Business Finder
+  description:
+    en_US: Korean businesses (2.76M, all industries), public-procurement vendors and open public bids from Korean government open data. Read-only, no API key.
+  icon: icon.svg
+  tags:
+    - search
+    - business
+credentials_for_provider: {}
+tools:
+  - tools/find_businesses.yaml
+  - tools/search_vendors.yaml
+  - tools/find_public_bids.yaml
+extra:
+  python:
+    source: provider/boim.py

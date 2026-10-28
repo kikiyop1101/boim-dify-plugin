@@ -1,0 +1,35 @@
+version: 0.0.1
+type: plugin
+author: boim
+name: boim
+label:
+  en_US: BOIM — Korean Business Finder
+description:
+  en_US: Find businesses in South Korea (2.76M, all industries), public-procurement vendors and open public bids with BOIM (boim.io). Read-only, no API key; every result links to its source.
+icon: icon.svg
+tags:
+  - search
+  - business
+resource:
+  memory: 268435456
+  permission: {}
+plugins:
+  tools:
+    - provider/boim.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: 1.7.0
+created_at: 2026-10-27T14:30:00Z
+privacy: PRIVACY.md
+repo: https://github.com/kikiyop1101/boim-dify-plugin
+contact: public-id@naver.com
+network:
+  domains:
+    - boim.io

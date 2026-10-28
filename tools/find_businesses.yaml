@@ -1,0 +1,53 @@
+identity:
+  name: find_businesses
+  author: boim
+  label:
+    en_US: Find Local Businesses
+description:
+  human:
+    en_US: Find operating businesses of any industry (cafés, restaurants, hair salons, clinics, academies, repair shops…) in a South Korean city, district or neighborhood. Name, industry and neighborhood only, listed alphabetically (not a ranking).
+  llm: >-
+    Find operating businesses of any industry in South Korea from BOIM (boim.io), built on the
+    Small Enterprise and Market Service store data (about 2.76 million businesses, 247 sub-categories): restaurants,
+    cafés, hair salons, dentists, laundries, interior shops, academies and so on. region is required:
+    province + city/district (시·도 + 시·군·구), optionally a neighborhood (행정동) as the last word,
+    e.g. '세종 보람동', '서울 강남구', '대전 유성구' ('Seoul Gangnam-gu' also works). Add category
+    (industry, e.g. '미용실', '카페', '한식', '치과') and/or query (part of a business name). Returns up to
+    5 businesses with name, industry, neighborhood and BOIM URL, the total count and a link to the full
+    list. The list is alphabetical, not a rating, and has no street address or phone; contact details
+    exist only for businesses that registered on BOIM. Cite the BOIM URL in your answer.
+parameters:
+  - name: region
+    type: string
+    required: true
+    form: llm
+    label:
+      en_US: Region
+    human_description:
+      en_US: Province and city/district, optionally a neighborhood, e.g. 세종 보람동, 서울 강남구 or Seoul Gangnam-gu
+    llm_description: >-
+      Korean region: 시·도 + 시·군·구, optionally a 행정동 as the last word, e.g. '세종 보람동', '서울 강남구',
+      '대전 유성구'. English romanization such as 'Seoul Gangnam-gu' also works.
+  - name: category
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Industry
+    human_description:
+      en_US: Industry, e.g. 카페 (café), 미용실 (hair salon), 한식 (Korean restaurant), 치과 (dentist)
+    llm_description: >-
+      Industry name, Korean preferred, e.g. '카페', '미용실', '한식', '치과', '세탁소', '인테리어', '학원'.
+      English words such as 'cafe' also work.
+  - name: query
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Business name
+    human_description:
+      en_US: Part of a business name to look for within the region
+    llm_description: Part of a business name to look for within the region.
+extra:
+  python:
+    source: tools/find_businesses.py

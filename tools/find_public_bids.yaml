@@ -1,0 +1,75 @@
+identity:
+  name: find_public_bids
+  author: boim
+  label:
+    en_US: Find Public Bids
+description:
+  human:
+    en_US: Find open Korean public tenders in all fields from KONEPS, Defense e-Procurement, LH, K-water and Nuri-jangteo, refreshed twice a day, closest deadline first, each with a link to the original notice.
+  llm: >-
+    Find open South Korean public-sector bid notices (before the deadline) in every field from KONEPS
+    (나라장터, Public Procurement Service), Defense e-Procurement (국방전자조달), LH, K-water (한국수자원공사)
+    and Nuri-jangteo (누리장터), refreshed twice a day by BOIM (boim.io). Filter by region (province of the
+    ordering agency, e.g. '서울', '경기', '경북'; empty = nationwide), category (field or item words, e.g.
+    '안내판', '인쇄', '청소', '소프트웨어', '건축공사업'), bid_type (goods, services, construction or other)
+    and query (words in the notice title or agency name). Returns up to 5 notices, closest deadline
+    first, with title, type, agency, deadline, estimated price when available and the original notice
+    URL, plus the total count and the BOIM bid list URL. Tell the user to check eligibility (regional
+    limits, certificates, documents) in the original notice.
+parameters:
+  - name: region
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Region
+    human_description:
+      en_US: Province of the ordering agency, e.g. 서울, 경기, 경북 (empty = nationwide)
+    llm_description: >-
+      Province of the ordering agency, e.g. '서울', '경기', '경북'. Central agencies may have no region.
+      Leave empty for nationwide.
+  - name: category
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Field or item
+    human_description:
+      en_US: Field or item words, e.g. 안내판 (signboards), 인쇄 (printing), 청소 (cleaning), 소프트웨어 (software)
+    llm_description: >-
+      Field or item words in Korean, e.g. '안내판', '간판', '인쇄', '청소', '소프트웨어', '학술연구',
+      '건축공사업', '전기공사업'.
+  - name: bid_type
+    type: select
+    required: false
+    form: llm
+    label:
+      en_US: Bid type
+    human_description:
+      en_US: Goods, services, construction or other (empty = all)
+    llm_description: "Bid type: '물품' = goods, '용역' = services, '공사' = construction, '기타' = other. Leave empty for all."
+    options:
+      - value: 물품
+        label:
+          en_US: Goods
+      - value: 용역
+        label:
+          en_US: Services
+      - value: 공사
+        label:
+          en_US: Construction
+      - value: 기타
+        label:
+          en_US: Other
+  - name: query
+    type: string
+    required: false
+    form: llm
+    label:
+      en_US: Title or agency
+    human_description:
+      en_US: Words in the notice title or the agency name
+    llm_description: Words in the bid notice title or the ordering agency name.
+extra:
+  python:
+    source: tools/find_public_bids.py
